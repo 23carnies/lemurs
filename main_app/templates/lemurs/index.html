@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Lemur List</h1>
+
+{% for lemur in lemurs %}
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ lemur.name }}</span>
+      <p>Species: {{ lemur.species }}</p>
+      <p>Description: {{ lemur.description }}</p>
+      {% if lemur.age > 0 %}
+        <p>Age: {{ lemur.age }}</p>
+      {% else %}
+        <p>Age: Pup</p>
+      {% endif %}
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock %}
