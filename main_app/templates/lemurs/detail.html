@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Lemur List</h1>
+<h1>Lemur Details</h1>
 
-{% for lemur in lemurs %}
-  <div class="card">
-  <a href="{% url 'detail' lemur.id %}">
+<div class="card">
     <div class="card-content">
       <span class="card-title">{{ lemur.name }}</span>
       <p>Species: {{ lemur.species }}</p>
@@ -16,8 +14,6 @@
         <p>Age: Pup</p>
       {% endif %}
     </div>
-    </a>
-  </div>
-{% endfor %}
+</div>
 
 {% endblock %}
