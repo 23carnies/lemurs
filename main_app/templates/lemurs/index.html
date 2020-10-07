@@ -6,7 +6,7 @@
 {% for lemur in lemurs %}
   <div class="card">
   <a href="{% url 'detail' lemur.id %}">
-    <div class="card-content">
+    <div class="card-content grey lighten-3 green-text text-darken-3">
       <span class="card-title">{{ lemur.name }}</span>
       <p>Species: {{ lemur.species }}</p>
       <p>Description: {{ lemur.description }}</p>

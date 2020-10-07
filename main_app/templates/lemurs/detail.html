@@ -4,7 +4,7 @@
 <h1>Lemur Details</h1>
 
 <div class="card">
-    <div class="card-content">
+    <div class="card-content green lighten-5 green-text text-darken-4">
       <span class="card-title">{{ lemur.name }}</span>
       <p>Species: {{ lemur.species }}</p>
       <p>Description: {{ lemur.description }}</p>
@@ -15,8 +15,8 @@
       {% endif %}
     </div>
     <div class="card-action">
-      <a href="{% url 'lemurs_update' lemur.id %}">Edit</a>
-      <a href="{% url 'lemurs_delete' lemur.id %}">Delete</a>
+      <a class="btn edit-btn" href="{% url 'lemurs_update' lemur.id %}">Edit</a>
+      <a class="btn del-btn" href="{% url 'lemurs_delete' lemur.id %}">Delete</a>
     </div>
 </div>
 
