@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Lemur
 
 # Create your views here.
@@ -20,3 +20,11 @@ def lemurs_detail(request, lemur_id):
 class LemurCreate(CreateView):
     model = Lemur
     fields = '__all__'
+
+class LemurUpdate(UpdateView):
+    model = Lemur
+    fields = ['species', 'description', 'age']
+
+class LemurDelete(DeleteView):
+    model = Lemur
+    success_url = '/lemurs/'
