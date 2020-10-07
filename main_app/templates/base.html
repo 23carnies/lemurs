@@ -17,8 +17,9 @@
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;All the Lemurs</a></li>
         </ul>
         <ul class="right">
-          <li><a href="/about">About</a></li>
-          <li><a href="/lemurs">See Lemurs!</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'lemurs_create' %}">Add Lemur</a></li>
+          <li><a href="{% url 'index' %}">See Lemurs!</a></li>
         </ul>
       </div>
     </nav>

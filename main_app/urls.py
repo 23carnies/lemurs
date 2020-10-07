@@ -6,4 +6,6 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('lemurs/', views.lemurs_index, name='index'),
     path('lemurs/<int:lemur_id>/', views.lemurs_detail, name='detail'),
+    path('lemurs/create/', views.LemurCreate.as_view(), name='lemurs_create'),
+    
 ]

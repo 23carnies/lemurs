@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView
 from .models import Lemur
 
 # Create your views here.
@@ -15,3 +16,7 @@ def lemurs_index(request):
 def lemurs_detail(request, lemur_id):
     lemur = Lemur.objects.get(id=lemur_id)
     return render(request, 'lemurs/detail.html', { 'lemur': lemur })
+
+class LemurCreate(CreateView):
+    model = Lemur
+    fields = '__all__'
