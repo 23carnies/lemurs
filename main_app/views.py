@@ -17,9 +17,10 @@ def lemurs_index(request):
 
 def lemurs_detail(request, lemur_id):
     lemur = Lemur.objects.get(id=lemur_id)
+    toys_lemur_doesnt_have = Toy.objects.exclude(id__in = lemur.toys.all().values_list('id'))
     feeding_form = FeedingForm()
     return render(request, 'lemurs/detail.html', {
-        'lemur': lemur, 'feeding_form': feeding_form 
+        'lemur': lemur, 'feeding_form': feeding_form, 'toys': toys_lemur_doesnt_have 
         })
 
 def add_feeding(request, lemur_id):
