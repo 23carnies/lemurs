@@ -1,23 +1,71 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 {% block content %}
 
 <h1>Lemur Details</h1>
 
-<div class="card">
-    <div class="card-content green lighten-5 green-text text-darken-4">
-      <span class="card-title">{{ lemur.name }}</span>
-      <p>Species: {{ lemur.species }}</p>
-      <p>Description: {{ lemur.description }}</p>
-      {% if lemur.age > 0 %}
+<div class="row">
+  <div class="col s6">
+    <form action="{% url 'add_feeding' lemur.id %}" method="post">
+      {% csrf_token %} 
+      {{ feeding_form.as_p }}
+      <input type="submit" class="btn" value="Add Feeding" />
+    </form>
+    <div class="card">
+      <div class="card-content green lighten-5 green-text text-darken-4">
+        <span class="card-title">{{ lemur.name }}</span>
+        <p>Species: {{ lemur.species }}</p>
+        <p>Description: {{ lemur.description }}</p>
+        {% if lemur.age > 0 %}
         <p>Age: {{ lemur.age }}</p>
-      {% else %}
+        {% else %}
         <p>Age: Pup</p>
-      {% endif %}
+        {% endif %}
+      </div>
+      <div class="card-action">
+        <a class="btn edit-btn" href="{% url 'lemurs_update' lemur.id %}"
+          >Edit</a
+        >
+        <a class="btn del-btn" href="{% url 'lemurs_delete' lemur.id %}"
+          >Delete</a
+        >
+      </div>
+      <div class="col s6">
+        <br>
+        {% if lemur.fed_for_today %}
+          <div class="card-panel lime-text center-align">{{lemur.name}} has been fed enough for the day</div>
+        {% else %}
+          <div class="card-panel red-text center-align">{{lemur.name}} is huunnggrrrry</div>
+        {% endif %}
+        <table class="striped">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Food</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for feeding in lemur.feeding_set.all %}
+            <tr>
+              <td>{{feeding.date}}</td>
+              <td>{{feeding.get_food_display}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="card-action">
-      <a class="btn edit-btn" href="{% url 'lemurs_update' lemur.id %}">Edit</a>
-      <a class="btn del-btn" href="{% url 'lemurs_delete' lemur.id %}">Delete</a>
-    </div>
+    <script>
+      var dateEl = document.getElementById('id_date');
+      M.Datepicker.init(dateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+      });
+      var selectEl = document.getElementById('id_food');
+      M.FormSelect.init(selectEl);
+    </script>
+    {% endblock %}
+  </div>
 </div>
 
-{% endblock %}

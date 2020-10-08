@@ -8,6 +8,16 @@ body {
 main {
   flex: 1 0 auto;
 }
+
+.card {
+  background-color: #bdbdbd;
+  border: none !important;
+  border-radius: 10px !important;
+}
+
+.card-content {
+  border-radius: 5px !important;
+}
   
 footer.page-footer {
   padding-top: 0;
@@ -17,11 +27,26 @@ footer.page-footer {
 .edit-btn {
   background-color: #ff9900;
   color: white;
+  margin: 5px;
 }
 
 .del-btn {
   background-color: crimson;
   color: white;
+  margin: 5px;
+}
+
+.edit-btn:hover {
+  background-color: #fad399;
+  border: 1px solid black;
+  box-shadow: 1px 2px #727070;
+}
+
+.del-btn:hover {
+  background-color: #8f394a;
+  color: white;
+  border: 1px solid black;
+  box-shadow: 1px 2px #727070;
 }
 
 iframe {

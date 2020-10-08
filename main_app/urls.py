@@ -9,4 +9,5 @@ urlpatterns = [
     path('lemurs/create/', views.LemurCreate.as_view(), name='lemurs_create'),
     path('lemurs/<int:pk>/update/', views.LemurUpdate.as_view(), name='lemurs_update'),
     path('lemurs/<int:pk>/delete/', views.LemurDelete.as_view(), name='lemurs_delete'),
+    path('lemurs/<int:lemur_id>/add_feeding', views.add_feeding, name='add_feeding'),
 ]
