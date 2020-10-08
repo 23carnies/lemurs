@@ -8,7 +8,7 @@
     <div class="card">
       <div class="card-content">
         <span class="card-title">{{ lemur.name }}</span>
-        <p>Breed: {{ lemur.breed }}</p>
+        <p>Species: {{ lemur.species }}</p>
         <p>Description: {{ lemur.description }}</p>
         {% if lemur.age > 0 %}
           <p>Age: {{ lemur.age }}</p>
@@ -21,6 +21,17 @@
         <a href="{% url 'lemurs_delete' lemur.id %}" class="btn del-btn">Delete</a>
       </div>
     </div>
+      {% for photo in lemur.photo_set.all %}
+      <img class="responsive-img card-panel" src="{{photo.url}}">
+      {% empty %}
+      <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+      {% endfor %}
+      <form action="{% url 'add_photo' lemur.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+        {% csrf_token %}
+        <input type="file" name="photo-file">
+        <br><br>
+        <input type="submit" class="btn edit-btn" value="Upload Photo">
+      </form>
   </div>
   <div class="col s9">
     <form action="{% url 'add_feeding' lemur.id %}" method="post">
