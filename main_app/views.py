@@ -60,3 +60,6 @@ class ToyDelete(DeleteView):
     model = Toy
     success_url = '/toys/'
 
+def assoc_toy(request, lemur_id, toy_id):
+    Lemur.objects.get(id=lemur_id).toys.add(toy_id)
+    return redirect('detail', lemur_id=lemur_id)
