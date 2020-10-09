@@ -3,6 +3,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Lemur, Feeding, Toy, Photo
 from .forms import FeedingForm
 import uuid
@@ -18,10 +20,12 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+@login_required
 def lemurs_index(request):
-    lemurs = Lemur.objects.all()
+    lemurs = Lemur.objects.filter(user=request.user)
     return render(request, 'lemurs/index.html', { 'lemurs': lemurs })
 
+@login_required
 def lemurs_detail(request, lemur_id):
     lemur = Lemur.objects.get(id=lemur_id)
     toys_lemur_doesnt_have = Toy.objects.exclude(id__in = lemur.toys.all().values_list('id'))
@@ -30,6 +34,7 @@ def lemurs_detail(request, lemur_id):
         'lemur': lemur, 'feeding_form': feeding_form, 'toys': toys_lemur_doesnt_have 
         })
 
+@login_required
 def add_feeding(request, lemur_id):
     form = FeedingForm(request.POST)
     if form.is_valid():
@@ -38,43 +43,45 @@ def add_feeding(request, lemur_id):
         new_feeding.save()
     return redirect('detail', lemur_id=lemur_id)
 
-class LemurCreate(CreateView):
+class LemurCreate(LoginRequiredMixin, CreateView):
     model = Lemur
     fields = ['name', 'species', 'description', 'age']
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class LemurUpdate(UpdateView):
+class LemurUpdate(LoginRequiredMixin, UpdateView):
     model = Lemur
     fields = ['species', 'description', 'age']
 
-class LemurDelete(DeleteView):
+class LemurDelete(LoginRequiredMixin, DeleteView):
     model = Lemur
     success_url = '/lemurs/'
 
-class ToyList(ListView):
+class ToyList(LoginRequiredMixin, ListView):
     model = Toy
 
-class ToyDetail(DetailView):
+class ToyDetail(LoginRequiredMixin, DetailView):
     model = Toy
 
-class ToyCreate(CreateView):
+class ToyCreate(LoginRequiredMixin, CreateView):
     model = Toy
     fields = '__all__'
 
-class ToyUpdate(UpdateView):
+class ToyUpdate(LoginRequiredMixin, UpdateView):
     model = Toy
     fields = ['name', 'color']
 
-class ToyDelete(DeleteView):
+class ToyDelete(LoginRequiredMixin, DeleteView):
     model = Toy
     success_url = '/toys/'
 
+@login_required
 def assoc_toy(request, lemur_id, toy_id):
     Lemur.objects.get(id=lemur_id).toys.add(toy_id)
     return redirect('detail', lemur_id=lemur_id)
 
+@login_required
 def add_photo(request, lemur_id):
     # photo-file will be the "name" attribute on the <input type="file">
     photo_file = request.FILES.get('photo-file', None)
