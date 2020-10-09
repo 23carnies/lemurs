@@ -129,3 +129,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/lemurs/'
+
+LOGOUT_REDIRECT_URL = '/'
