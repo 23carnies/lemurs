@@ -71,6 +71,11 @@
               A <span style="color: {{ toy.color }}">{{ toy.color }}</span> {{ toy.name }}<br>
             </span>
           </div>
+          <div class="card-action"></div>
+            <form action="{% url 'unassoc_toy' lemur.id toy.id %}" method="post">
+                {% csrf_token %}
+              <button type="submit" class="btn edit-btn">Remove</button>
+            </form>  
         </div>
       {% endfor %}
     {% else %}

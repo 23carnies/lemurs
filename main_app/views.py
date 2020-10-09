@@ -82,6 +82,11 @@ def assoc_toy(request, lemur_id, toy_id):
     return redirect('detail', lemur_id=lemur_id)
 
 @login_required
+def unassoc_toy(request, lemur_id, toy_id):
+    Lemur.objects.get(id=lemur_id).toys.remove(toy_id)
+    return redirect('detail', lemur_id=lemur_id)    
+
+@login_required
 def add_photo(request, lemur_id):
     # photo-file will be the "name" attribute on the <input type="file">
     photo_file = request.FILES.get('photo-file', None)
