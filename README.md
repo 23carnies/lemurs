@@ -1,5 +1,7 @@
 # Lemurs!
 
+[Open App](https://lemurs-are-cool.herokuapp.com/)
+
 This was a homework project built at General Assembly while learning Python, Django, PostgreSQL, and AWS SDK. Utilizes the user authentication built into Django.
 
 I have loved lemurs since I first saw the kids' show Zaboomafoo many years ago. This is an ode to lemurs and Madagascar. I hope one day to go visit.
